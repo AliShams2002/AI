@@ -69,7 +69,7 @@ const ChatHistory = () => {
         <section
           className={`fixed xl:relative xl:top-0 xl:right-0 ${
             historyIsOpen ? "top-28" : "-top-[800px]"
-          }  bg-blue-300 xl:bg-transparent right-10 z-50 flex max-w-[300px] w-full max-h-[450px] h-full xl:h-full  items-center flex-col gap-5 p-2 transition-all duration-500 rounded-md`}
+          }  bg-blue-300 xl:bg-transparent right-10 z-40 flex max-w-[300px] w-full max-h-[450px] h-full xl:h-full  items-center flex-col gap-5 p-2 transition-all duration-500 rounded-md`}
         >
           <button
             className={`${

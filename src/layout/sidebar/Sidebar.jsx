@@ -11,7 +11,7 @@ const Sidebar = () => {
     <div
       class={`${
         sidebarIsOpen ? "w-[250px] left-0" : "w-16 -left-16"
-      } h-screen fixed z-40 top-0 lg:left-0 flex gap-2 bg-blue-200 text-white transform transition-all duration-500`}
+      } h-screen fixed z-50 top-0 lg:left-0 flex gap-2 bg-blue-200 text-white transform transition-all duration-500`}
     >
       <button
         className={`lg:hidden fixed ${
