@@ -4,7 +4,6 @@ import logo from "../../assest/img/logo1.png";
 import TypingIndicator from "./TypingIndicator";
 
 const Chat = ({ data }) => {
-
   const [chats, setChats] = useState([]);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -186,7 +185,7 @@ const Chat = ({ data }) => {
       <section className="w-full h-full flex items-center flex-col gap-2">
         {messages.length > 0 ? (
           <>
-            <div className="w-full flex items-center justify-between p-5">
+            <div className="w-full flex items-center justify-between p-7">
               <div className="flex gap-2 items-center">
                 <img src={logo} alt="" className="w-10 h-10 rounded-full" />
                 <span className="text-xl font-medium text-white-100 transition-all duration-500">
@@ -215,112 +214,109 @@ const Chat = ({ data }) => {
                 </select>
               </div>
             </div>
-            <div className="w-full h-full  bg-blue-200 transition-all duration-500 rounded-md shadow-xl overflow-hidden flex flex-col py-2 px-4">
-              <div
-                  id="chat"
-                  className="flex-1 overflow-y-scroll p-4 space-y-4"
-                >
-                  {messages.map((message, index) => (
+            <div className="w-full h-full  bg-blue-200 transition-all duration-500 rounded-md shadow-xl overflow-hidden flex flex-col py-2 px-2 md:px-4">
+              <div id="chat" className="flex-1 overflow-y-scroll p-4 space-y-4">
+                {messages.map((message, index) => (
+                  <div
+                    key={index}
+                    className={`flex ${
+                      message.sender === "user"
+                        ? "justify-end"
+                        : "justify-start"
+                    }`}
+                  >
                     <div
-                      key={index}
-                      className={`flex ${
+                      className={`max-w-xs lg:max-w-md px-4 py-2 rounded-t-md transition-all duration-500 ${
                         message.sender === "user"
-                          ? "justify-end"
-                          : "justify-start"
+                          ? "bg-blue-100 text-white-100 rounded-bl-md"
+                          : "bg-blue-300 text-white-100 rounded-br-md"
                       }`}
                     >
-                      <div
-                        className={`max-w-xs lg:max-w-md px-4 py-2 rounded-t-md transition-all duration-500 ${
-                          message.sender === "user"
-                            ? "bg-blue-100 text-white-100 rounded-bl-md"
-                            : "bg-blue-300 text-white-100 rounded-br-md"
-                        }`}
-                      >
-                        {message.text}
-                        {message.file && message.sender === "user" && (
-                          <div className="mt-2">
-                            {console.log(message.file)}
-                            {message.file.type.startsWith("image/") ? (
-                              <img
-                                src={URL.createObjectURL(message.file)}
-                                alt="ارسال شده"
-                                className="max-w-full rounded"
-                              />
-                            ) : (
-                              <div className="p-2 bg-white bg-opacity-20 rounded">
-                                <p>فایل پیوست شده: {message.file.name}</p>
-                              </div>
-                            )}
-                          </div>
-                        )}
-                        <div className="w-full flex gap-1">
-                          <i
-                            class={`${
-                              message.sender === "user"
-                                ? "ri-check-double-line"
-                                : "hidden"
-                            }`}
-                          ></i>
-                          <p className="text-xs opacity-70 mt-1">
-                            {message.timestamp}
-                          </p>
+                      {message.text}
+                      {message.file && message.sender === "user" && (
+                        <div className="mt-2">
+                          {console.log(message.file)}
+                          {message.file.type.startsWith("image/") ? (
+                            <img
+                              src={URL.createObjectURL(message.file)}
+                              alt="ارسال شده"
+                              className="max-w-full rounded"
+                            />
+                          ) : (
+                            <div className="p-2 bg-white bg-opacity-20 rounded">
+                              <p>فایل پیوست شده: {message.file.name}</p>
+                            </div>
+                          )}
                         </div>
+                      )}
+                      <div className="w-full flex gap-1">
+                        <i
+                          class={`${
+                            message.sender === "user"
+                              ? "ri-check-double-line"
+                              : "hidden"
+                          }`}
+                        ></i>
+                        <p className="text-xs opacity-70 mt-1">
+                          {message.timestamp}
+                        </p>
                       </div>
                     </div>
-                  ))}
-                  {isTyping && <TypingIndicator/>}
-                  <div ref={messagesEndRef} />
-                </div>
+                  </div>
+                ))}
+                {isTyping && <TypingIndicator />}
+                <div ref={messagesEndRef} />
+              </div>
 
-                {/* ورودی پیام */}
-                <div className="p-4 bg-blue-300 rounded-md transition-all duration-500">
-                  {renderFilePreview()}
-                  <div className="flex items-center space-x-2">
-                    <button
-                      onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                      className="p-2 rounded-full hover:bg-blue-200 text-2xl text-white-100 transition-all duration-500"
-                    >
-                      <i class="ri-user-smile-line"></i>
-                    </button>
+              {/* ورودی پیام */}
+              <div className="py-4 px-3 bg-blue-300 rounded-md transition-all duration-500">
+                {renderFilePreview()}
+                <div className="flex items-center md:space-x-2">
+                  <button
+                    onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                    className="p-2 rounded-full hover:bg-blue-200 text-2xl text-white-100 transition-all duration-500"
+                  >
+                    <i class="ri-user-smile-line"></i>
+                  </button>
 
-                    <div className="relative">
-                      <input
-                        type=""
-                        // onChange={handleFileChange}
-                        className="hidden"
-                        id="file-upload"
-                      />
-                      <label
-                        htmlFor="file-upload"
-                        className="p-2 rounded-full hover:bg-blue-200 cursor-pointer text-2xl text-white-100 transition-all duration-500"
-                      >
-                        <i class="ri-attachment-2"></i>
-                      </label>
-                    </div>
-
+                  <div className="relative">
                     <input
-                      type="text"
-                      value={input}
-                      onChange={(e) => setInput(e.target.value)}
-                      onKeyPress={handleKeyPress}
-                      placeholder="پیام خود را بنویسید..."
-                      className="flex-1 bg-gray-100 rounded-md py-2 px-4 focus:outline-none text-white-100 bg-transparent focus:ring-blue-500 transition-all duration-500"
+                      type=""
+                      // onChange={handleFileChange}
+                      className="hidden"
+                      id="file-upload"
                     />
-
-                    <button
-                      onClick={handleSendMessage}
-                      className="bg-blue-100 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                    <label
+                      htmlFor="file-upload"
+                      className="p-2 rounded-full hover:bg-blue-200 cursor-pointer text-2xl text-white-100 transition-all duration-500"
                     >
-                      <i class="ri-send-plane-2-line"></i>
-                    </button>
+                      <i class="ri-attachment-2"></i>
+                    </label>
                   </div>
 
-                  {showEmojiPicker && (
-                    <div className="absolute bottom-20 right-4">
-                      <EmojiPicker onEmojiClick={handleEmojiClick} />
-                    </div>
-                  )}
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder="پیام خود را بنویسید..."
+                    className="flex-1 bg-gray-100 rounded-md md:py-2 md:px-4 focus:outline-none text-white-100 bg-transparent focus:ring-blue-500 transition-all duration-500"
+                  />
+
+                  <button
+                    onClick={handleSendMessage}
+                    className="bg-blue-100 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                  >
+                    <i class="ri-send-plane-2-line"></i>
+                  </button>
                 </div>
+
+                {showEmojiPicker && (
+                  <div className="absolute bottom-20 right-4">
+                    <EmojiPicker onEmojiClick={handleEmojiClick} />
+                  </div>
+                )}
+              </div>
             </div>
           </>
         ) : null}

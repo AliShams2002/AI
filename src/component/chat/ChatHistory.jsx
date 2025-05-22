@@ -41,7 +41,7 @@ const ChatHistory = () => {
             : "w-full lg:w-[calc(100%-64px)]"
         } absolute top-0 ${
           sidebarIsOpen ? "lg:left-[250px]" : "lg:left-[64px]"
-        } h-screen flex items-center gap-5 bg-blue-300 transition-all duration-500 p-5`}
+        } h-screen flex items-center gap-5 bg-blue-300 transition-all duration-500 px-3 md:p-5`}
       >
         <section
           className={`fixed xl:relative top-28 xl:top-0 xl:right-0 ${
@@ -58,7 +58,7 @@ const ChatHistory = () => {
               onClick={() => setHistoryIsOpen(!historyIsOpen)}
             ></i>
           </button>
-          <div className="w-full flex items-center gap-2 bg-transparent py-2 px-4 bg-blue-200 rounded-md transition-all duration-500 shadow-xl">
+          <div className="w-full flex items-center gap-2 bg-transparent py-2 px-4 bg-[#1d1748] rounded-md">
             <i class="ri-search-line text-white-100 transition-all duration-500"></i>
             <input
               className="focus:outline-none w-full bg-transparent text-white-100 transition-all duration-500"
@@ -76,6 +76,7 @@ const ChatHistory = () => {
                   <li
                     className="cursor-pointer w-full"
                     onClick={() => setData(i)}
+                    key={i[0].botId}
                   >
                     <input
                       className="hidden peer"
