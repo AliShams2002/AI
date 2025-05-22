@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MainContext } from "../../context/MainContext";
-import logo from "../../assest/img/logo1.png";
 import Chat from "./Chat";
+import swal from "sweetalert";
+import logo from "../../assest/img/logo1.png";
 
 const ChatHistory = () => {
   const { sidebarIsOpen, setSidebarIsOpen } = useContext(MainContext);
@@ -19,6 +20,28 @@ const ChatHistory = () => {
         botId: `YEKTA AI${Math.floor(Math.random() * (1000 - 0 + 1)) + 0}`,
       },
     ]);
+  };
+
+  const handelRemoveChat = (item) => {
+    swal({
+      title: "Are you sure?",
+      text: "Are you sure you want to delete this chat?",
+      icon: "warning",
+      buttons: ["No", "Yes"],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        const itemIndex = chats.findIndex((i) => i[0].botId == item);
+        chats.splice(itemIndex, 1);
+        localStorage.setItem("chats", JSON.stringify(chats));
+        newChat();
+        swal("The deletion operation was successful!", {
+          icon: "success",
+        });
+      } else {
+        swal("You have canceled the deletion of this chat!");
+      }
+    });
   };
 
   useEffect(() => {
@@ -41,20 +64,20 @@ const ChatHistory = () => {
             : "w-full lg:w-[calc(100%-64px)]"
         } absolute top-0 ${
           sidebarIsOpen ? "lg:left-[250px]" : "lg:left-[64px]"
-        } h-screen flex items-center gap-5 bg-blue-300 transition-all duration-500 px-3 md:p-5`}
+        } h-screen flex items-center gap-5 bg-blue-300 transition-all duration-500 px-1 md:p-5`}
       >
         <section
-          className={`fixed xl:relative top-28 xl:top-0 xl:right-0 ${
-            historyIsOpen ? "right-4" : "-right-[400px]"
-          }  bg-blue-300 xl:bg-transparent z-50 flex max-w-[300px] w-full max-h-[600px] h-full xl:h-full  items-center flex-col gap-5 p-2 transition-all duration-500`}
+          className={`fixed xl:relative xl:top-0 xl:right-0 ${
+            historyIsOpen ? "top-28" : "-top-[800px]"
+          }  bg-blue-300 xl:bg-transparent right-10 z-50 flex max-w-[300px] w-full max-h-[450px] h-full xl:h-full  items-center flex-col gap-5 p-2 transition-all duration-500 rounded-md`}
         >
           <button
             className={`${
-              historyIsOpen ? "right-80" : "right-6"
-            } xl:hidden text-2xl text-white-100 fixed top-72 p-3 bg-blue-300 rounded-md transition-all duration-500`}
+              historyIsOpen ? "top-[570px]" : "top-4"
+            } xl:hidden text-2xl right-44 text-white-100 fixed  p-3 bg-blue-300 rounded-full transition-all duration-500`}
           >
             <i
-              class="ri-message-2-line"
+              class={`${historyIsOpen ? 'ri-close-large-line' : 'ri-message-2-line'}`}
               onClick={() => setHistoryIsOpen(!historyIsOpen)}
             ></i>
           </button>
@@ -74,7 +97,7 @@ const ChatHistory = () => {
               chats.map((i) => (
                 <>
                   <li
-                    className="cursor-pointer w-full"
+                    className="cursor-pointer w-full flex gap-1"
                     onClick={() => setData(i)}
                     key={i[0].botId}
                   >
@@ -96,7 +119,17 @@ const ChatHistory = () => {
                           {i[i.length - 1].text}
                         </p>
                       </div>
-                      <span>{i[i.length - 1].timestamp}</span>
+                      <div>
+                        <span className="text-sm">
+                          {i[i.length - 1].timestamp}
+                        </span>
+                        <button>
+                          <i
+                            class="ri-delete-bin-line text-2xl text-white-100"
+                            onClick={() => handelRemoveChat(i[0].botId)}
+                          ></i>
+                        </button>
+                      </div>
                     </label>
                   </li>
                 </>

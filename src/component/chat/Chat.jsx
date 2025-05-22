@@ -41,7 +41,7 @@ const Chat = ({ data }) => {
     if (messages.length > 0) {
       handelChats(messages[0]);
     }
-    if (messages.length > 1) {
+    if (messages.length > 2) {
       localStorage.setItem("chatHistory", JSON.stringify(messages));
       localStorage.setItem("chats", JSON.stringify(chats));
     }
@@ -185,14 +185,14 @@ const Chat = ({ data }) => {
       <section className="w-full h-full flex items-center flex-col gap-2">
         {messages.length > 0 ? (
           <>
-            <div className="w-full flex items-center justify-between p-7">
-              <div className="flex gap-2 items-center">
+            <div className="w-full flex items-center justify-center lg:justify-between p-2">
+              <div className="flex gap-2 items-center pl-7">
                 <img src={logo} alt="" className="w-10 h-10 rounded-full" />
                 <span className="text-xl font-medium text-white-100 transition-all duration-500">
                   {messages[0].botId}
                 </span>
               </div>
-              <div>
+              <div className="ml-auto">
                 <select
                   className="w-full p-2 bg-blue-200 text-white-100 transition-all duration-500 rounded-md focus:outline-none shadow-xl"
                   name=""
@@ -214,7 +214,7 @@ const Chat = ({ data }) => {
                 </select>
               </div>
             </div>
-            <div className="w-full h-full  bg-blue-200 transition-all duration-500 rounded-md shadow-xl overflow-hidden flex flex-col py-2 px-2 md:px-4">
+            <div className="w-full h-full  bg-blue-200 transition-all duration-500 rounded-md overflow-hidden flex flex-col  md:px-4 pb-2">
               <div id="chat" className="flex-1 overflow-y-scroll p-4 space-y-4">
                 {messages.map((message, index) => (
                   <div

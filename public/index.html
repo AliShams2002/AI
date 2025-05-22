@@ -13,6 +13,44 @@
   </head>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    .swal-overlay {
+      background-color: rgba(1, 8, 8, 0.45);
+    }
+
+    .swal-modal {
+      background-color: #0d082c;
+      border: 1px solid #4629f2;
+    }
+
+    .swal-title,
+    .swal-text {
+      color: #f3f3f3;
+      margin-bottom: 28px;
+    }
+
+    .swal-button {
+      padding: 7px 19px;
+      border-radius: 4px;
+      background-color: #1d1748;
+      font-size: 12px;
+      color: #f3f3f3;
+      transition: all 0.2s;
+    }
+    .swal-button--cancel {
+      box-shadow: none;
+      border: none;
+      padding: 7px 19px;
+      border-radius: 4px;
+      background-color: #1d1748;
+      font-size: 12px;
+      color: #f3f3f3;
+      transition: all 0.2s;
+    }
+
     #chat::-webkit-scrollbar {
       display: none;
       flex-flow: wrap;
